@@ -1,0 +1,23 @@
+/* global */
+
+* {
+  box-sizing: border-box;
+}
+
+button {
+  cursor: pointer;
+  outline: none;
+  border: 0;
+  background: transparent;
+}
+
+/* app.jsx */
+
+.container {
+  max-width: 80rem;
+  margin: auto;
+}
+
+.detailScreen {
+  display: flex;
+}
