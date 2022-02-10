@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import style from "./header.module.css";
+import styles from "./header.module.css";
 
 const Header = (props) => {
   const inputRef = useRef();
@@ -15,20 +15,20 @@ const Header = (props) => {
   };
 
   return (
-    <header className={style.header}>
-      <button className={style.logo} onClick={pageReload}>
-        <i className="fab fa-youtube"></i>
+    <header className={styles.header}>
+      <button className={styles.logo} onClick={pageReload}>
+        <i className={`fab fa-youtube {styles.logoIcon}`}></i>
         <span>Youtube</span>
       </button>
 
-      <form className={style.form}>
+      <form className={styles.form}>
         <input
           ref={inputRef}
           type="text"
           placeholder="Search.."
-          className={style.input}
+          className={styles.input}
         />
-        <button className={style.search} onClick={onSubmit}>
+        <button className={styles.search} onClick={onSubmit}>
           <i className="fas fa-search"></i>
         </button>
       </form>

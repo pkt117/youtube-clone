@@ -1,25 +1,26 @@
 import React from "react";
-import style from "./video_item.module.css";
+import styles from "./video_item.module.css";
 
-const Video_item = (props) => {
+const VideoItem = (props) => {
   const location = props.list.snippet;
 
   const onVideoClick = () => props.onVideoClick(props.list);
+  const displayType = props.display === "list" ? styles.list : styles.grid;
   return (
-    <li className={style.box}>
-      <button className={style.video} onClick={onVideoClick}>
+    <li className={`${styles.box}  ${displayType}`}>
+      <button className={styles.video} onClick={onVideoClick}>
         <img
           src={location.thumbnails.medium.url}
           alt="thumbnail"
-          className={style.thumbnail}
+          className={styles.thumbnail}
         />
-        <p className={style.description}>
-          <span className={style.title}>{location.title}</span>
-          <span className={style.channel}>{location.channelTitle}</span>
+        <p className={styles.description}>
+          <span className={styles.title}>{location.title}</span>
+          <span className={styles.channel}>{location.channelTitle}</span>
         </p>
       </button>
     </li>
   );
 };
 
-export default Video_item;
+export default VideoItem;

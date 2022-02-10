@@ -1,30 +1,29 @@
-let requestOptions = {
-  method: "GET",
-  redirect: "follow",
-};
+export default class Youtube {
+  constructor(key) {
+    this.requestOptions = {
+      method: "GET",
+      redirect: "follow",
+    };
 
-export function list_update() {
-  return (
-    fetch(
-      "https://www.googleapis.com/youtube/v3/videos?part=snippet&chart=mostPopular&maxResults=30&regionCode=KR&locale=KR&key=AIzaSyDDdi_Tmc48Kecd46ILcN9I8GIJ2-rZww0",
-      requestOptions
-    )
-      .then((response) => response.json())
-      .then((json) => json.items)
-      // .then((result) => console.log(result))
-      .catch((error) => console.log("error", error))
-  );
-}
+    this.key = key;
+  }
 
-export function list_search(value) {
-  return (
-    fetch(
-      `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=30&q=${value}&key=AIzaSyDDdi_Tmc48Kecd46ILcN9I8GIJ2-rZww0`,
-      requestOptions
-    )
-      .then((response) => response.json())
-      .then((json) => json.items)
-      // .then((result) => console.log(result.id))
-      .catch((error) => console.log("error", error))
-  );
+  async popular() {
+    const response = await fetch(
+      `https://www.googleapis.com/youtube/v3/videos?part=snippet&chart=mostPopular&type=video&maxResults=30&regionCode=KR&locale=KR&key=${this.key}`,
+      this.requestOptions
+    );
+    const result = await response.json();
+    return result.items;
+  }
+
+  async search(value) {
+    const response = await fetch(
+      `https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&maxResults=30&q=${value}&key=${this.key}`,
+      this.requestOptions
+    );
+    const result = await response.json();
+
+    return result.items.map((item) => ({ ...item, id: item.id.videoId }));
+  }
 }

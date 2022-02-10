@@ -1,35 +1,27 @@
 import React, { useEffect, useState } from "react";
-import * as Youtube from "../../fetch/youtube.js";
-import Video_item from "../video_item/video_item";
-import style from "./video_list.module.css";
+import VideoItem from "../video_item/video_item";
+import styles from "./video_list.module.css";
 
-const Video_list = (props) => {
-  const [popular_list, setPopular_list] = useState([]);
-  useEffect(() => {
-    if (props.onSearchValue == "") {
-      Youtube.list_update().then((item) => {
-        setPopular_list(item);
-      });
-    } else {
-      Youtube.list_search(props.onSearchValue).then((item) => {
-        setPopular_list(item);
-      });
-    }
-  }, [, props.onSearchValue]);
-
+const VideoList = (props) => {
   const onVideoClick = (video) => {
     props.onVideoClick(video);
   };
 
   return (
-    <ul className={style.videoBox}>
-      {popular_list.map((item) => {
+    <ul className={styles.videoBox}>
+      {props.popularList.map((item) => {
         return (
-          <Video_item onVideoClick={onVideoClick} list={item} key={item.etag} />
+          <VideoItem
+            display={props.display}
+            onVideoClick={onVideoClick}
+            list={item}
+            key={item.id}
+            displayType={props.displayType}
+          />
         );
       })}
     </ul>
   );
 };
 
-export default Video_list;
+export default VideoList;

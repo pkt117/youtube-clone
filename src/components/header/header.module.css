@@ -26,13 +26,19 @@
   color: white;
 }
 
+.form {
+  width: 70%;
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 2em;
+}
+
 .input {
-  outline: none;
   flex-basis: 100%;
+  outline: none;
   font-size: 1.2rem;
   height: 3rem;
   vertical-align: middle;
-  width: 50rem;
   padding: 0.5em;
 }
 

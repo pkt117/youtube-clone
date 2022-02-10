@@ -1,15 +1,14 @@
 import React from "react";
-import style from "./video_detail.module.css";
+import styles from "./video_detail.module.css";
 
-const Video_detail = (props) => {
+const VideoDetail = (props) => {
   const videoData = props.videoData;
-  const id =
-    typeof videoData.id == "string" ? videoData.id : videoData.id.videoId;
+  const id = videoData.id;
   let url = `https://www.youtube.com/embed/${id}`;
   return (
-    <div id={style.detailBox}>
+    <div id={styles.detailBox}>
       <iframe
-        id={style.videoPlayer}
+        id={styles.videoPlayer}
         type="text/html"
         width="720"
         height="405"
@@ -25,4 +24,4 @@ const Video_detail = (props) => {
   );
 };
 
-export default Video_detail;
+export default VideoDetail;

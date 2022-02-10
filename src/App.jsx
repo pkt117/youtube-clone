@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
-import style from "./App.module.css";
+import styles from "./App.module.css";
 import Header from "./components/header/header";
-import Video_list from "./components/video_list/video_list";
-import Video_detail from "./components/video_detail/video_detail";
+import VideoList from "./components/video_list/video_list";
+import VideoDetail from "./components/video_detail/video_detail";
 
-const App = () => {
+const App = ({ youtube }) => {
   const [searchValue, setSearchValue] = useState("");
   const [videoInfo, setVideoInfo] = useState(null);
+  const [popularList, setPopularList] = useState([]);
 
   const onSearch = (value) => {
     setSearchValue(value);
@@ -18,18 +19,37 @@ const App = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  // useEffect(() => {}, [videoInfo]);
+  useEffect(() => {
+    if (searchValue == "") {
+      youtube.popular().then((item) => {
+        setPopularList(item);
+      });
+    } else {
+      youtube.search(searchValue).then((item) => {
+        setPopularList(item);
+      });
+    }
+  }, [, searchValue]);
+
   return (
-    <section className={style.container}>
+    <section className={styles.container}>
       <Header onSearch={onSearch} />
-      {videoInfo == null ? (
-        <Video_list onSearchValue={searchValue} onVideoClick={onVideoClick} />
-      ) : (
-        <div className={style.detailScreen}>
-          <Video_detail videoData={videoInfo} />
-          <Video_list onSearchValue={searchValue} onVideoClick={onVideoClick} />
+
+      <div className={styles.videoContainer}>
+        {videoInfo && (
+          <div className={styles.detail}>
+            <VideoDetail videoData={videoInfo} />
+          </div>
+        )}
+        <div className={styles.list}>
+          <VideoList
+            display={videoInfo ? "list" : "grid"}
+            onSearchValue={searchValue}
+            onVideoClick={onVideoClick}
+            popularList={popularList}
+          />
         </div>
-      )}
+      </div>
     </section>
   );
 };
