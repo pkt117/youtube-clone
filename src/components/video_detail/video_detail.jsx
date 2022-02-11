@@ -1,26 +1,25 @@
 import React from "react";
 import styles from "./video_detail.module.css";
 
-const VideoDetail = (props) => {
-  const videoData = props.videoData;
+const VideoDetail = ({ videoData, videoData: { snippet } }) => {
   const id = videoData.id;
   let url = `https://www.youtube.com/embed/${id}`;
   return (
-    <div id={styles.detailBox}>
+    <section id={styles.detail}>
       <iframe
         id={styles.videoPlayer}
         type="text/html"
-        width="720"
-        height="405"
+        width="100%"
+        height="500"
         src={url}
         allowFullScreen
       />
 
-      <h1>{videoData.snippet.title}</h1>
-      <h3>{videoData.snippet.channelTitle}</h3>
+      <h1>{snippet.title}</h1>
+      <h3>{snippet.channelTitle}</h3>
 
-      <p>{videoData.snippet.description}</p>
-    </div>
+      <pre className={styles.description}>{snippet.description}</pre>
+    </section>
   );
 };
 

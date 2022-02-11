@@ -29,3 +29,9 @@ button {
 .list {
   flex: 1 1 30%;
 }
+
+@media (max-width: 760px) {
+  .videoContainer {
+    flex-direction: column;
+  }
+}

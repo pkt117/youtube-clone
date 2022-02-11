@@ -1,12 +1,12 @@
-import React, { useRef } from "react";
+import React, { memo, useRef } from "react";
 import styles from "./header.module.css";
 
-const Header = (props) => {
+const Header = memo(({ onSearch }) => {
   const inputRef = useRef();
   const onSubmit = (event) => {
     event.preventDefault();
     if (inputRef.current.value === "") return;
-    props.onSearch(inputRef.current.value);
+    onSearch(inputRef.current.value);
     inputRef.current.value = "";
   };
 
@@ -34,6 +34,6 @@ const Header = (props) => {
       </form>
     </header>
   );
-};
+});
 
 export default Header;
